@@ -7,9 +7,9 @@
         <button class="play-button" v-if="isGameOver" @click="drawImage">开始</button>
         <button class="play-button" v-else @click="stop">结束</button>
         <button class="play-button" @click="muteAudio">{{isMute?'播放':'静音'}}</button>
-        <button class="play-button" @click="showScore">记录排行版</button>
+        <button class="play-button" @click="showScore">记录排行</button>
         <el-dialog
-        title="记录排行版"
+        title="记录排行（Top 10）"
         :visible.sync="dialogVisible"
         width="50%">
         <table>
@@ -20,7 +20,9 @@
         <tr v-for="(it,index) in scopeList" :key="index">
             <td class="username">
                 <el-avatar size="small" :src="it.avater">{{it.userId}}</el-avatar>
-                <span class="user-line">{{it.userId}}</span></td>
+                <span class="user-line">{{it.userId}}</span>
+                <img src="/jianpai.png" v-if="index === 0"/>
+            </td>
             <td class="userscore">{{it.score}}</td>
         </tr>
         </table>
@@ -191,6 +193,7 @@ body,html{
         line-height: 28px;
         vertical-align: top;
         padding-left:5px;
+        margin-right: 5px;
     }
     .username {
         color:#606266;
