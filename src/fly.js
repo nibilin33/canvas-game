@@ -10,11 +10,11 @@ export default class Bird {
     }
     init() {
         this.x = this.context.canvas.width/4;
-        this.y = 100;
+        this.y = 20;
         this.speed = 5;
         this.stop = null;
-        this.birdHeight = 60;
-        this.birdWidth = 40;
+        this.birdHeight = 55;
+        this.birdWidth = 35;
     }
     //向上加速speed = speed + at,t=1s
     up(){

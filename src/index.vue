@@ -9,23 +9,23 @@
         <button class="play-button" @click="muteAudio">{{isMute?'播放':'静音'}}</button>
         <button class="play-button" @click="showScore">记录排行</button>
         <el-dialog
-        title="记录排行（Top 10）"
+        title="记录排行"
         :visible.sync="dialogVisible"
-        width="50%">
-        <table>
-        <tr>
-            <td class="username">用户</td>
-            <td class="username">分数</td>
-        </tr>    
+        width="50%"> 
+        <div class="top-number">TOP 10</div>
+        <div class="table-limit-height">
+        <table>   
         <tr v-for="(it,index) in scopeList" :key="index">
             <td class="username">
+                <span class="range-number">{{index+1}}</span>
                 <el-avatar size="small" :src="it.avater">{{it.userId}}</el-avatar>
                 <span class="user-line">{{it.userId}}</span>
                 <img src="/jianpai.png" v-if="index === 0"/>
             </td>
-            <td class="userscore">{{it.score}}</td>
+            <td class="userscore">{{it.score}}分</td>
         </tr>
         </table>
+        </div>
         <span slot="footer" class="dialog-footer">
             <button class="close-button" @click="dialogVisible = false">关闭</button>
         </span>
@@ -97,7 +97,7 @@ export default {
             await this.bg.draw();
             await this.bird.draw();
             Music.init();
-            this.fillText('按住屏幕角色上移，松开角色下移','3rem');
+            this.fillText('按住屏幕角色上移，松开角色下移','20px');
             this.gun = new Gun(context);
             this.addEvent(canvas);
         },
@@ -181,6 +181,10 @@ body,html{
     height: 100%;
     margin:0;
 }
+.el-dialog__body,.el-dialog__header{
+    padding:5px 20px;
+}
+
 .game{
     height: 100%;
     -webkit-overflow-scrolling:touch;
@@ -189,6 +193,23 @@ body,html{
     -ms-user-select:none;
     user-select:none;
     text-align: center;
+    .table-limit-height{
+        max-height: 40vh;
+        overflow-y:auto;
+    }
+    .top-number{
+        font-weight:bold;
+        color: transparent;
+        -webkit-text-stroke: 1px #F56C6C;
+    }
+    .range-number{
+        font-weight:bold;
+        color: transparent;
+        line-height: 28px;
+        vertical-align: top;
+        -webkit-text-stroke: 1px #606266;
+        padding-right: 5px;
+    }
     .user-line{
         line-height: 28px;
         vertical-align: top;
