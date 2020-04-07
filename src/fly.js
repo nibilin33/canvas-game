@@ -1,10 +1,12 @@
-import dingding from './imgs/dingding.png';
+import dingding from './imgs/dingding-1.png';
+import dingdingflod from './imgs/dingding-2.png';
 import {getImage} from './utils';
 export default class Bird {
     constructor(context){
         this.a = 0.95;
         this.context = context;
         this.img = null;
+        this.imgup = null;
         this.direction = 1;
         this.init();
     }
@@ -51,10 +53,21 @@ export default class Bird {
         this.stop =  null;
     }
     async draw() {
-        if(!this.img) {
-            this.img = await getImage(dingding);
+        let img = null;
+        if(this.direction === 1) {
+            if(!this.img) {
+                this.img = await getImage(dingding);
+            }
+            img = this.img;
         }
-        this.context.drawImage(this.img,this.x,this.y);  
+        if(this.direction === -1) {
+            if(!this.imgup) {
+                this.imgup = await getImage(dingdingflod);
+            }
+            img = this.imgup;
+        }
+
+        this.context.drawImage(img,this.x,this.y);  
     }
     //碰撞检测
     detection(){
